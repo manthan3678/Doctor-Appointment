@@ -6,7 +6,7 @@ import image3 from "../../../assets/Gemini_Generated_Image_whychoose3.png";
 
 const WhyChoose = () => {
   return (
-    <div>
+    <>
       <h2 className="text-center mt-5">Why Choose Us?</h2>
       <div className="row why-container">
         <div className="col-md-3">
@@ -40,7 +40,7 @@ const WhyChoose = () => {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

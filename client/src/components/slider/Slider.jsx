@@ -9,7 +9,6 @@ import BannerTwo from "../../assets/Gemini_Generated_Image_2.png";
 import BannerThree from "../../assets/Gemini_Generated_Image_3.png";
 import Bannerfour from "../../assets/Gemini_Generated_Image_4.png";
 import Bannerfive from "../../assets/Gemini_Generated_Image_5.png";
-import { data } from "react-router";
 const Slider = () => {
   const images = [BannerOne, BannerTwo, BannerThree, Bannerfour, Bannerfive];
   return (

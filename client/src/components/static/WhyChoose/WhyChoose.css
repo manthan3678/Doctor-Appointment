@@ -1,24 +1,28 @@
 .why-container {
   display: flex;
-  align-items: center;
+  align-items: stretch; /* ensures all cards stretch to same height */
   justify-content: center;
-  margin: 30px 0px;
+  margin: 30px 0;
+  gap: 20px; /* better spacing than using margin on div */
+  flex-wrap: wrap; /* makes it responsive */
 }
+
 .why-container div {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border: 1px solid gray;
-  margin: 10px;
   padding: 20px;
   border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .why-container h3 {
   text-align: center;
   font-weight: normal;
 }
+
 .why-container p {
   text-align: center;
   color: rgb(63, 61, 61);

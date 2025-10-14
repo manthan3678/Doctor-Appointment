@@ -1,6 +1,7 @@
 .intro-container {
   margin: 30px 0px;
-  overflow: hidden;
+  overflow-x: clip; /* Prevent horizontal overflow only if really necessary */
+  overflow-y: visible;
 }
 
 .intro-container .row {
