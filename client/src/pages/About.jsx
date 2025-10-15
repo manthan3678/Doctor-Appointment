@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import ShortIntro from "../components/static/ShortIntro/ShortIntro";
 
 const About = () => {
   return (
     <div>
-      About
+      <ShortIntro />
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;
