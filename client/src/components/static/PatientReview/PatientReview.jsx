@@ -19,7 +19,7 @@ const PatientReview = () => {
                 <span className="lh-base text-uppercase">{d.name}</span> <br />{" "}
                 {d.address}
               </p>
-              <div className="d-flex flex-row p-2">
+              <div className="d-flex flex-row px-2 py-2">
                 <h6 className="icon mb-0">
                   <span className="fas fa-star active-star"></span>
                   <span className="fas fa-star active-star"></span>
