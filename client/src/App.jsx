@@ -10,6 +10,8 @@ import Gallery from "./pages/Gallery/Gallery.jsx";
 import Register from "./pages/Auth/Register.jsx";
 import Login from "./pages/Auth/Login.jsx";
 import { Toaster } from "react-hot-toast";
+import AllDoctor from "./pages/Doctors/AllDoctor.jsx";
+import Appointment from "./pages/Doctors/Appointment.jsx";
 const App = () => {
   return (
     <>
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/doctors" element={<AllDoctor />} />
+        <Route path="/doctors/:id" element={<Appointment />} />
       </Routes>
       <Footer />
     </>
