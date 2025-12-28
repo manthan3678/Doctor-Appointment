@@ -1,0 +1,91 @@
+/* Backdrop Overlay */
+.editModal {
+  background-color: rgba(0, 0, 0, 0.5); /* Dims the background */
+  backdrop-filter: blur(4px); /* Modern blur effect */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal Content Box */
+.editModal .modal-content {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Header Styling */
+.editModal .modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 1.5rem;
+}
+
+.editModal .modal-title {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Body and Form Layout */
+.mod-detail {
+  gap: 15px; /* Spacing between inputs */
+  align-items: center;
+  padding: 10px;
+}
+
+/* Profile Picture Styling */
+.mod-detail img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0d6efd;
+  padding: 3px;
+  margin-bottom: 10px;
+}
+
+/* Input & Select Styling */
+.mod-detail input[type="text"],
+.mod-detail input[type="date"],
+.mod-detail select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.mod-detail input:focus,
+.mod-detail select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+/* Row for Gender and DOB */
+.mod-detail .flex-row {
+  width: 100%;
+  gap: 10px;
+}
+
+.mod-detail .flex-row select,
+.mod-detail .flex-row input {
+  flex: 1;
+}
+
+/* File Input Styling */
+.mod-detail input[type="file"] {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Footer Buttons */
+.modal-footer {
+  border-top: 1px solid #eee;
+  padding: 1rem 1.5rem;
+}
+
+.btn {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+}

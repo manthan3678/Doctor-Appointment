@@ -37,7 +37,7 @@ const Appointment = () => {
           <div className="col-md-8 d-flex flex-column justify-content-center">
             <h6>Experience : {docinfo?.experience}</h6>
             <p>{docinfo?.about}</p>
-            <h5>onsultation Fee : {docinfo?.fee}</h5>
+            <h5>Consultation Fee : {docinfo?.fee}</h5>
             {/* Date And Time */}
             <div className="date-time my-3">
               <h6 className="">Select Your Booking Date & Time : 👇 </h6>

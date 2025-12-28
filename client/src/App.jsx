@@ -12,6 +12,9 @@ import Login from "./pages/Auth/Login.jsx";
 import { Toaster } from "react-hot-toast";
 import AllDoctor from "./pages/Doctors/AllDoctor.jsx";
 import Appointment from "./pages/Doctors/Appointment.jsx";
+import UserProfile from "./pages/User/UserProfile.jsx";
+import MyAppointment from "./pages/User/MyAppointment.jsx";
+
 const App = () => {
   return (
     <>
@@ -26,6 +29,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/doctors" element={<AllDoctor />} />
         <Route path="/doctors/:id" element={<Appointment />} />
+        <Route path="/user/profile" element={<UserProfile />} />
+        <Route path="/user/appointments" element={<MyAppointment />} />
       </Routes>
       <Footer />
     </>

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router";
 const NavMenu = () => {
+  const [user, setUser] = useState(true);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg">
@@ -65,6 +67,31 @@ const NavMenu = () => {
                 Book A Appointment
               </button>
             </form>
+
+            {/* login User */}
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              {user ? (
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link p-0 fs-3 text"
+                    to={"/user/profile"}
+                    aria-disabled="true"
+                  >
+                    <i className="fa-solid fa-circle-user"></i>
+                  </NavLink>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link"
+                    to={"/login"}
+                    aria-disabled="true"
+                  >
+                    Login
+                  </NavLink>
+                </li>
+              )}
+            </ul>
           </div>
         </div>
       </nav>
