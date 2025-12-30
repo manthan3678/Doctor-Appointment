@@ -1,5 +1,7 @@
 import userModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 export const userRegister = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -28,6 +30,51 @@ export const userRegister = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Something went wrong User Register",
+      error,
+    });
+  }
+};
+
+export const userLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).send({
+        success: false,
+        message: "Please Add Email & Password",
+      });
+    }
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(401).send({
+        success: false,
+        message: "Something Went Wrong User Not Found",
+      });
+    }
+    // match password
+    const isMatch = await bcrypt.compare(password, user?.password);
+    if (!isMatch) {
+      return res.status(402).send({
+        success: false,
+        message: "Something Went Wrong Password Incorrect",
+      });
+    }
+    // token
+    const token = jwt.sign({ id: user?._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+    user.password = undefined;
+    res.status(200).send({
+      success: true,
+      message: "Login Successfully",
+      token,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong User login",
       error,
     });
   }
