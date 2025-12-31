@@ -2,6 +2,7 @@ import userModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+// ***************** Register ***********************
 export const userRegister = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -34,7 +35,7 @@ export const userRegister = async (req, res) => {
     });
   }
 };
-
+// ***************** Login ***********************
 export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -75,6 +76,43 @@ export const userLogin = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Something went wrong User login",
+      error,
+    });
+  }
+};
+// ***************** update user details *********************
+export const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.status(404).send({
+        success: false,
+        message: "User Id Not Found",
+        error,
+      });
+    }
+    const { name, phone, dob, address, gender, image } = req.body;
+    const photoToBase64 = req.file && req.file.buffer.toString("base64");
+
+    const user = await userModel.findByIdAndUpdate(
+      id,
+      {
+        $set: { name, dob, address, gender, phone, image: photoToBase64 },
+      },
+      { returnOriginal: false }
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Profile Updated Successfully",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong User Update",
       error,
     });
   }
