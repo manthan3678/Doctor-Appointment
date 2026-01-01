@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  updatePassword,
   updateUser,
   userLogin,
   userRegister,
@@ -14,5 +15,6 @@ router.post("/login", userLogin);
 
 // Update Profile Route
 router.patch("/update/:id", userAuth, upload.single("image"), updateUser);
-
+// Update Password Route
+router.patch("/update-password/:id", userAuth, updatePassword);
 export default router;

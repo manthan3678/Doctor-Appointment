@@ -6,6 +6,8 @@ import morgan from "morgan";
 import connectDB from "./config/DB.js";
 
 import userRoute from "./routes/userRoute.js";
+import webMessageRoute from "./routes/webMessaageRoute.js";
+
 // config env variable
 dotenv.config();
 // Connect DB
@@ -18,9 +20,9 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-//route
+//routes
 app.use("/api/v1/user", userRoute);
-
+app.use("/api/v1/webmessage", webMessageRoute);
 app.get("/", (req, res) => {
   res.send("<h2>Port Running On 8080</h2>");
 });

@@ -117,3 +117,63 @@ export const updateUser = async (req, res) => {
     });
   }
 };
+
+// Password Reset
+export const updatePassword = async (req, res) => {
+  try {
+    // user id
+    const { id } = req.params;
+    if (!id) {
+      return res.status(404).send({
+        success: false,
+        message: "user id not found password-update",
+      });
+    }
+    // req.body
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword) {
+      return res.status(500).send({
+        success: false,
+        message: "Provide OLD OR NEW Password",
+      });
+    }
+    // find user
+    const user = await userModel.findById(id);
+
+    if (!user) {
+      return res.status(402).send({
+        success: false,
+        message: "User Not Found : Update Password",
+      });
+    }
+    // check old password
+
+    const isMatch = await bcrypt.compare(oldPassword, user?.password);
+
+    if (!isMatch) {
+      return res.status(401).send({
+        success: false,
+        message: "Old Password Not Matched",
+      });
+    }
+    // hash new password
+    const salt = await bcrypt.genSalt(10);
+
+    const hashpassword = await bcrypt.hash(newPassword, salt);
+
+    user.password = hashpassword;
+    await user.save();
+
+    res.status(200).send({
+      success: true,
+      message: "Password Updated Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Password Update",
+      error,
+    });
+  }
+};
