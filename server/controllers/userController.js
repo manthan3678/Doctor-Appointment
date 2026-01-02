@@ -117,7 +117,6 @@ export const updateUser = async (req, res) => {
     });
   }
 };
-
 // Password Reset
 export const updatePassword = async (req, res) => {
   try {
