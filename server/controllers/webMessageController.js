@@ -61,7 +61,7 @@ export const deleteMessage = async (req, res) => {
 
     res.status(201).send({
       success: true,
-      message: "Message Delete SuccessFully",
+      message: "Message Deleted SuccessFully",
     });
   } catch (error) {
     console.log(error);
