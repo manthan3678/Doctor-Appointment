@@ -6,6 +6,7 @@ import {
   deleteDoctor,
   getAllDoctor,
   getSingleDoctor,
+  updateAvailableStatus,
   updateDoctor,
 } from "../controllers/doctorController.js";
 
@@ -31,4 +32,12 @@ router.patch(
 );
 // delete doc data
 router.delete("/delete-doctor/:id", userAuth, adminAuth, deleteDoctor);
+// Doctor available status
+router.patch(
+  "/update-status-doctor/:id",
+  userAuth,
+  adminAuth,
+  updateAvailableStatus
+);
+
 export default router;

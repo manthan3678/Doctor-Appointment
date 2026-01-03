@@ -180,3 +180,42 @@ export const deleteDoctor = async (req, res) => {
     });
   }
 };
+// available status updte
+export const updateAvailableStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      res.status(404).send({
+        success: false,
+        message: "Please add doctor id",
+        doctor,
+      });
+    }
+    const { availableStatus } = req.body;
+    if (!availableStatus) {
+      res.status(404).send({
+        success: false,
+        message: "Please provide available status",
+      });
+    }
+    const doctor = await doctorModel.findByIdAndUpdate(
+      id,
+      {
+        $set: { available: availableStatus },
+      },
+      { returnOriginal: false }
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Doctot Available Status Updated",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Updating Availability",
+      error,
+    });
+  }
+};
