@@ -1,0 +1,101 @@
+/* Wrapper */
+.menu-wrapper {
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+}
+
+/* Card */
+.menu-card {
+  width: 280px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 28px 22px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Title */
+.menu-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #1f2937;
+  letter-spacing: 0.5px;
+}
+
+/* Menu Links */
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  color: #4b5563;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.menu-link:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+  transform: translateX(6px);
+}
+
+/* Active */
+.menu-link.active {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+/* Logout Button */
+/* Logout Button */
+.logout-btn {
+  margin-top: 26px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #ffffff;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+
+/* Hover Effect */
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(239, 68, 68, 0.45);
+}
+
+/* Active Click */
+.logout-btn:active {
+  transform: scale(0.97);
+}
+
+/* Focus (Accessibility) */
+.logout-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.35);
+}
+
+/* Mobile Friendly */
+/* @media (max-width: 576px) {
+  .menu-card {
+    width: 90%;
+  }
+} */
