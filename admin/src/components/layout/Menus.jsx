@@ -3,12 +3,19 @@ import { NavLink } from "react-router-dom";
 import "./menu.css";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/slice/authSlice";
+
 const Menus = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("appData");
     toast.success("Logout Successfully");
     navigate("/");
   };
+
   return (
     <div className="menu-wrapper d-flex">
       <div className="menu-card">
