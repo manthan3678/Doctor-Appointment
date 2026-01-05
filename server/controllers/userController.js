@@ -1,4 +1,6 @@
 import userModel from "../models/userModel.js";
+import appointmentModel from "../models/appointmentModel.js";
+
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -172,6 +174,64 @@ export const updatePassword = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in Password Update",
+      error,
+    });
+  }
+};
+// get all user
+export const getAllUser = async (req, res) => {
+  try {
+    const users = await userModel.find({});
+
+    res.status(200).send({
+      success: true,
+      message: "Get Successfully A;; Users",
+      totalUser: users.length,
+      users,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error In Getting Users",
+      error,
+    });
+  }
+};
+// get user details & appointment details
+export const getUserDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.status(404).send({
+        success: false,
+        message: "Provide User Id",
+        error,
+      });
+    }
+    const user = await userModel.findById(id);
+    if (!user) {
+      res.status(404).send({
+        success: false,
+        message: "No User Found With  This Id",
+        error,
+      });
+    }
+    // find appointment
+    const appointments = await appointmentModel.find({ userId: user?._id });
+
+    res.status(200).send({
+      success: true,
+      message: "User Details Fetched",
+      user,
+      appointments,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error In Getting User Details",
       error,
     });
   }
