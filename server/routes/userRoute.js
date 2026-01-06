@@ -22,6 +22,6 @@ router.patch("/update-password/:id", userAuth, updatePassword);
 // get all user
 router.get("/get-allusers", userAuth, adminAuth, getAllUser);
 // get user details
-router.get("/get-userdetails", userAuth, adminAuth, getUserDetails);
+router.get("/get-userdetails/:id", userAuth, adminAuth, getUserDetails);
 
 export default router;

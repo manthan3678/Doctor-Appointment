@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
           <Menus />
         </div>
         <div className="col-md-9">
-          <div>{children}</div>
+          <div style={{ minHeight: "80vh" }}>{children}</div>
           <Footer />
         </div>
       </div>

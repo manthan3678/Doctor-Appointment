@@ -204,24 +204,22 @@ export const getUserDetails = async (req, res) => {
     const { id } = req.params;
 
     if (!id) {
-      res.status(404).send({
+      return res.status(404).send({
         success: false,
         message: "Provide User Id",
-        error,
       });
     }
     const user = await userModel.findById(id);
     if (!user) {
-      res.status(404).send({
+      return res.status(404).send({
         success: false,
         message: "No User Found With  This Id",
-        error,
       });
     }
     // find appointment
     const appointments = await appointmentModel.find({ userId: user?._id });
 
-    res.status(200).send({
+    return res.status(200).send({
       success: true,
       message: "User Details Fetched",
       user,
@@ -229,7 +227,7 @@ export const getUserDetails = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    return res.status(500).send({
       success: false,
       message: "Error In Getting User Details",
       error,
