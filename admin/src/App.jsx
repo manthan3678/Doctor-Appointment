@@ -9,6 +9,7 @@ import DoctorDetails from "./pages/doctors/DoctorDetails";
 import AllAppointments from "./pages/appointments/AllAppointments";
 import AppointmentDetails from "./pages/appointments/AppointmentDetails";
 import UserDetail from "./pages/user/UserDetail";
+import AddDoctor from "./pages/doctors/AddDoctor";
 function App() {
   return (
     <>
@@ -19,9 +20,12 @@ function App() {
         <Route path="/all-users" element={<AllUser />} />
         <Route path="/all-doctors" element={<AllDoctors />} />
         <Route path="/doctor-details/:id" element={<DoctorDetails />} />
+        <Route path="/add-doctor" element={<AddDoctor />} />
+
         <Route path="/all-appointment" element={<AllAppointments />} />
-        <Route path="/doctor-details/:id" element={<AppointmentDetails />} />
-        <Route path="//user-details/:id" element={<UserDetail />} />
+        <Route path="/appointment-details/:id" element={<AppointmentDetails />} />
+
+        <Route path="/user-details/:id" element={<UserDetail />} />
       </Routes>
     </>
   );

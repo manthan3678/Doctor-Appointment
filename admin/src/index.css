@@ -1,3 +1,17 @@
 #root {
   overflow: hidden;
 }
+/* Home JSx */
+.dashboard-card {
+  border-radius: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+}
+
+.dashboard-card h2 {
+  color: #212529;
+}
+
+.dashboard-card p {
+  font-size: 0.95rem;
+}

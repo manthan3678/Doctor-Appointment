@@ -1,0 +1,14 @@
+.all-doctor-table .table thead th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #6c757d;
+}
+
+.all-doctor-table .table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.all-doctor-table .table tbody tr:hover {
+  background-color: #f8f9fa;
+}

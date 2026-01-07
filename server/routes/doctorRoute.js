@@ -19,6 +19,7 @@ router.post(
   upload.single("image"),
   addDoctor
 );
+// getall doctor
 router.get("/get-alldoctor", getAllDoctor);
 // single doc data
 router.get("/get-doctor/:id", getSingleDoctor);
