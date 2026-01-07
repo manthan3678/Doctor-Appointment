@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUser } from "../actions/userAction";
+import { getAllUser, getUserDeatils } from "../actions/userAction";
 
 const userSlice = createSlice({
   name: "user",
@@ -21,7 +21,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     // get all user
     builder
-      // LOGIN PENDING
+      // get all user PENDING
       .addCase(getAllUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -36,6 +36,25 @@ const userSlice = createSlice({
 
       // getAllUser ERROR ❌
       .addCase(getAllUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // get user details PENDING
+      .addCase(getUserDeatils.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      // get User details SUCCESS ✅
+      .addCase(getUserDeatils.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.user = action.payload.user;
+        state.appointments = action.payload.appointments;
+      })
+
+      // get user details ERROR ❌
+      .addCase(getUserDeatils.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

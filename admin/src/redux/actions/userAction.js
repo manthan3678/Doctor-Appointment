@@ -11,7 +11,22 @@ export const getAllUser = createAsyncThunk(
       return res?.data;
     } catch (error) {
       const message =
-        error?.response?.data?.message || error.message || "login error";
+        error?.response?.data?.message || error.message || "Get Users Error";
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+// get all userDetails
+export const getUserDeatils = createAsyncThunk(
+  "user/getUserDeatils",
+
+  async (id, thunkApi) => {
+    try {
+      const res = await API.get(`/user/get-userdetails/${id}`);
+      return res?.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message || error.message || "User Details Error";
       return thunkApi.rejectWithValue(message);
     }
   }
