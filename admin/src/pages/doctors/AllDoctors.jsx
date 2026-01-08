@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllDoctor } from "../../redux/actions/doctorAction";
 import "./doctor.css";
+import { reset } from "../../redux/slice/doctorSlice";
 
 const AllDoctors = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,10 @@ const AllDoctors = () => {
 
           <button
             className="btn btn-primary rounded-pill px-4"
-            onClick={() => navigate("/add-doctor")}
+            onClick={() => {
+              navigate("/add-doctor");
+              dispatch(reset());
+            }}
           >
             + Add Doctor
           </button>

@@ -1,12 +1,38 @@
-.admin-footer {
-  background-color: #ffffff;
-  border-top: 1px solid #e9ecef;
-  padding: 14px 0;
-  font-size: 0.9rem;
-  color: #6c757d;
+/* FIX LEFT SIDEBAR */
+.sidebar-fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  border-right: 1px solid #e5e7eb;
 }
 
-.footer-text {
-  font-weight: 500;
+/* SCROLL ONLY RIGHT SIDE */
+.content-scroll {
+  margin-left: 16.6667%; /* col-md-2 = 16.67% */
+  height: 100vh;
+  overflow-y: auto;
+  background: #f8fafc;
 }
 
+/* LARGE SCREENS */
+@media (min-width: 992px) {
+  .content-scroll {
+    margin-left: 16.6667%;
+  }
+}
+
+/* MOBILE FIX */
+@media (max-width: 767px) {
+  .sidebar-fixed {
+    position: relative;
+    height: auto;
+  }
+
+  .content-scroll {
+    margin-left: 0;
+    height: auto;
+  }
+}

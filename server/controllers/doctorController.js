@@ -32,7 +32,6 @@ export const addDoctor = async (req, res) => {
       !address ||
       !dob ||
       !gender ||
-      available === undefined ||
       !photoBase64
     ) {
       return res.status(400).send({
@@ -58,7 +57,7 @@ export const addDoctor = async (req, res) => {
     const doctor = new doctorModel(doctorData);
     await doctor.save();
     res.status(200).send({
-      success: false,
+      success: true,
       message: "Doctor Profile Created",
       doctor,
     });

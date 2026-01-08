@@ -4,17 +4,20 @@ import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   return (
-    <>
-      <div className="row">
-        <div className="col-md-3">
+    <div className="container-fluid p-0">
+      <div className="row g-0">
+        {/* LEFT SIDEBAR */}
+        <div className="col-md-3 col-lg-2 sidebar-fixed">
           <Menus />
         </div>
-        <div className="col-md-9">
-          <div style={{ minHeight: "80vh" }}>{children}</div>
+
+        {/* RIGHT CONTENT */}
+        <div className="col-md-9 col-lg-10 content-scroll">
+          <div className="p-4" style={{minHeight:"90vh"}}>{children}</div>
           <Footer />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
