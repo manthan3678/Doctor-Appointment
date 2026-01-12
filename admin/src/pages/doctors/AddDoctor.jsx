@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { addDoctor } from "../../redux/actions/doctorAction";
 import InputForm from "../../components/forms/InputForm";
 import InputSelect from "../../components/forms/InputSelect";
-import { reset } from "../../redux/slice/doctorSlice";
+import { resetStatus } from "../../redux/slice/doctorSlice";
 
 const AddDoctor = () => {
   const [name, setName] = useState("");
@@ -36,7 +36,7 @@ const AddDoctor = () => {
       !phone ||
       !address ||
       !gender ||
-      !image
+      !(image instanceof File)
     ) {
       return toast.error("Provide All The Details");
     }
@@ -52,22 +52,23 @@ const AddDoctor = () => {
     formData.append("address", address);
     formData.append("dob", dob);
     formData.append("gender", gender);
-    formData.append("image", image);
-
+    if (image instanceof File) {
+      formData.append("image", image);
+    }
     dispatch(addDoctor(formData));
   };
-  const { success, error } = useSelector((state) => state.doctor);
+  const { addSuccess, error } = useSelector((state) => state.doctor);
   useEffect(() => {
-    if (success) {
+    if (addSuccess) {
       toast.success("Doctor Created");
-      dispatch(reset());
+      dispatch(resetStatus());
       navigate("/all-doctors");
     }
     if (error) {
       toast.error(error);
-      dispatch(reset());
+      dispatch(resetStatus());
     }
-  }, [success, error, dispatch, navigate]);
+  }, [addSuccess, error, dispatch, navigate]);
   return (
     <Layout>
       {/* HEADER */}

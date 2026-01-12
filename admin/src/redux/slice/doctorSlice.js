@@ -3,82 +3,102 @@ import {
   addDoctor,
   getAllDoctor,
   getDoctorDetails,
+  updateDoctor,
 } from "../actions/doctorAction";
+
+const initialState = {
+  loading: false,
+
+  // data
+  doctor: null,
+  doctors: [],
+
+  // success flags (SEPARATE)
+  fetchSuccess: false, // getAllDoctor / getDoctorDetails
+  addSuccess: false, // addDoctor
+  updateSuccess: false, // updateDoctor
+
+  error: null,
+};
 
 const doctorSlice = createSlice({
   name: "doctor",
-  initialState: {
-    loading: false,
-    success: false,
-    doctor: null,
-    doctors: null,
-    error: null,
-  },
+  initialState,
   reducers: {
-    reset: (state) => {
+    resetStatus: (state) => {
+      state.fetchSuccess = false;
+      state.addSuccess = false;
+      state.updateSuccess = false;
       state.error = null;
-      state.success = false;
     },
   },
   extraReducers: (builder) => {
-    // get all doctor
     builder
-      // get all doctors PENDING
+
+      /* ================= GET ALL DOCTORS ================= */
+
       .addCase(getAllDoctor.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-
-      // getAllDoctors SUCCESS ✅
       .addCase(getAllDoctor.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true;
+        state.fetchSuccess = true;
         state.doctors = action.payload.doctors;
       })
-
-      // getAllDoctors ERROR ❌
       .addCase(getAllDoctor.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      // get doctor details PENDING
+
+      /* ================= GET DOCTOR DETAILS ================= */
+
       .addCase(getDoctorDetails.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-
-      // get doctor details SUCCESS ✅
       .addCase(getDoctorDetails.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true;
+        state.fetchSuccess = true;
         state.doctor = action.payload.doctor;
       })
-
-      // get user details ERROR ❌
       .addCase(getDoctorDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      // Add New Doctor PENDING
+
+      /* ================= ADD DOCTOR ================= */
+
       .addCase(addDoctor.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-
-      // Add New Doctor SUCCESS ✅
       .addCase(addDoctor.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true;
+        state.addSuccess = true;
         state.doctor = action.payload.doctor;
       })
-
-      // Add New Doctor ERROR ❌
       .addCase(addDoctor.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      /* ================= UPDATE DOCTOR ================= */
+
+      .addCase(updateDoctor.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateDoctor.fulfilled, (state) => {
+        state.loading = false;
+        state.updateSuccess = true;
+      })
+      .addCase(updateDoctor.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   },
 });
 
-export const { reset } = doctorSlice.actions;
+export const { resetStatus } = doctorSlice.actions;
 export default doctorSlice.reducer;

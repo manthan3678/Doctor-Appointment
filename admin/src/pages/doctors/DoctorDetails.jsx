@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDoctorDetails } from "../../redux/actions/doctorAction";
+import {
+  getDoctorDetails,
+  updateDoctor,
+} from "../../redux/actions/doctorAction";
 import InputForm from "../../components/forms/InputForm";
 import InputSelect from "../../components/forms/InputSelect";
+import toast from "react-hot-toast";
+import { resetStatus } from "../../redux/slice/doctorSlice";
 
 const DoctorDetails = () => {
   const { id } = useParams();
@@ -16,7 +21,9 @@ const DoctorDetails = () => {
     disptach(getDoctorDetails(id));
   }, [disptach, id]);
 
-  const { doctor, loading } = useSelector((state) => state.doctor);
+  const { doctor, loading, updateSuccess, error } = useSelector(
+    (state) => state.doctor
+  );
   const [edit, setEdit] = useState(false);
 
   const [name, setName] = useState(doctor?.name);
@@ -48,8 +55,37 @@ const DoctorDetails = () => {
     }
   }, [doctor]);
 
+  const handleUpdate = () => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("about", about);
+    formData.append("degree", degree);
+    formData.append("speciality", speciality);
+    formData.append("experience", experience);
+    formData.append("fees", fees);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("address", address);
+    formData.append("dob", dob);
+    formData.append("gender", gender);
+    if (image instanceof File) {
+      formData.append("image", image);
+    }
+    disptach(updateDoctor({ id, formData }));
+  };
+  useEffect(() => {
+    if (updateSuccess) {
+      toast.success("Doctor Details Updated");
+      disptach(resetStatus());
+      navigate("/all-doctors");
+    }
+
+    if (error) {
+      toast.error(error);
+    }
+  }, [updateSuccess, error, navigate]);
+
   const handleDelete = () => {};
-  const handleUpdate = () => {};
   return (
     <Layout>
       {/* HEADER */}
@@ -246,7 +282,9 @@ const DoctorDetails = () => {
 
             {/* ACTION BUTTON */}
             <div className="d-flex justify-content-end mt-4">
-              <button className="btn btn-primary px-4">Add Doctor</button>
+              <button className="btn btn-primary px-4" onClick={handleUpdate}>
+                Update Doctor
+              </button>
             </div>
           </div>
         </div>
