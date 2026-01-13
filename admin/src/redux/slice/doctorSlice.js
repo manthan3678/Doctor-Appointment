@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addDoctor,
+  deleteDoctor,
   getAllDoctor,
   getDoctorDetails,
   updateDoctor,
@@ -17,7 +18,7 @@ const initialState = {
   fetchSuccess: false, // getAllDoctor / getDoctorDetails
   addSuccess: false, // addDoctor
   updateSuccess: false, // updateDoctor
-
+  deleteSuccess: false,
   error: null,
 };
 
@@ -94,6 +95,20 @@ const doctorSlice = createSlice({
         state.updateSuccess = true;
       })
       .addCase(updateDoctor.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      /* ================= DELETE DOCTOR ================= */
+
+      .addCase(deleteDoctor.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteDoctor.fulfilled, (state) => {
+        state.loading = false;
+        state.deleteSuccess = true;
+      })
+      .addCase(deleteDoctor.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

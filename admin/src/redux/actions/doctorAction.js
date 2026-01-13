@@ -78,3 +78,21 @@ export const updateDoctor = createAsyncThunk(
     }
   }
 );
+
+// Delete doctor
+export const deleteDoctor = createAsyncThunk(
+  "doctor/deleteDoctor",
+
+  async (id, thunkApi) => {
+    try {
+      const res = await API.delete(`/doctor/delete-doctor/${id}`);
+      return res?.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        "Delete Doctor Error";
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);

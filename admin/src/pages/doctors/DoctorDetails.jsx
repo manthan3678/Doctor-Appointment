@@ -3,6 +3,7 @@ import Layout from "../../components/layout/Layout";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteDoctor,
   getDoctorDetails,
   updateDoctor,
 } from "../../redux/actions/doctorAction";
@@ -21,7 +22,7 @@ const DoctorDetails = () => {
     disptach(getDoctorDetails(id));
   }, [disptach, id]);
 
-  const { doctor, loading, updateSuccess, error } = useSelector(
+  const { doctor, loading, updateSuccess, error, deleteSuccess } = useSelector(
     (state) => state.doctor
   );
   const [edit, setEdit] = useState(false);
@@ -54,7 +55,7 @@ const DoctorDetails = () => {
       setImage(doctor.image || null);
     }
   }, [doctor]);
-
+  // Handle Update
   const handleUpdate = () => {
     const formData = new FormData();
     formData.append("name", name);
@@ -84,8 +85,23 @@ const DoctorDetails = () => {
       toast.error(error);
     }
   }, [updateSuccess, error, navigate]);
-
-  const handleDelete = () => {};
+  // Handle Delete
+  const handleDelete = () => {
+    const confirm = window.confirm(
+      "Are Your Sure, You Want to Delete This Doctor"
+    );
+    if (confirm) {
+      disptach(deleteDoctor(id));
+    }
+    if (deleteSuccess) {
+      toast.success("Doctor Deleted");
+      disptach(resetStatus());
+      navigate("/all-doctors");
+    }
+    if (error) {
+      toast.error(error);
+    }
+  };
   return (
     <Layout>
       {/* HEADER */}
