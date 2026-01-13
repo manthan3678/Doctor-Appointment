@@ -96,3 +96,29 @@ export const deleteDoctor = createAsyncThunk(
     }
   }
 );
+
+// Update Status doctor
+export const updateAvailStatus = createAsyncThunk(
+  "doctor/updateAvailStatus",
+
+  async ({ id, availableStatus }, thunkApi) => {
+    try {
+      const res = await API.patch(
+        `/doctor/update-status-doctor/${id}`,
+        { availableStatus }, // ✅ OBJECT
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return res?.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        "Update Available Doctor Status Error";
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);

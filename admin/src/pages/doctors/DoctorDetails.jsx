@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteDoctor,
   getDoctorDetails,
+  updateAvailStatus,
   updateDoctor,
 } from "../../redux/actions/doctorAction";
 import InputForm from "../../components/forms/InputForm";
@@ -22,9 +23,14 @@ const DoctorDetails = () => {
     disptach(getDoctorDetails(id));
   }, [disptach, id]);
 
-  const { doctor, loading, updateSuccess, error, deleteSuccess } = useSelector(
-    (state) => state.doctor
-  );
+  const {
+    doctor,
+    loading,
+    updateSuccess,
+    error,
+    deleteSuccess,
+    availableSuccess,
+  } = useSelector((state) => state.doctor);
   const [edit, setEdit] = useState(false);
 
   const [name, setName] = useState(doctor?.name);
@@ -95,6 +101,18 @@ const DoctorDetails = () => {
     }
     if (deleteSuccess) {
       toast.success("Doctor Deleted");
+      disptach(resetStatus());
+      navigate("/all-doctors");
+    }
+    if (error) {
+      toast.error(error);
+    }
+  };
+  // Handle Available Status
+  const handleAvailStatus = (id, availableStatus) => {
+    disptach(updateAvailStatus({ id, availableStatus }));
+    if (availableSuccess) {
+      toast.success("Doctor Status Updated");
       disptach(resetStatus());
       navigate("/all-doctors");
     }
@@ -294,13 +312,42 @@ const DoctorDetails = () => {
                   disabled={!edit}
                 />
               </div>
-            </div>
+              {/* ACTION BAR */}
+              <div className="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+                {/* Availability Status */}
+                <div>
+                  <span
+                    className={`badge px-3 py-2 ${
+                      doctor?.available ? "bg-success" : "bg-danger"
+                    }`}
+                  >
+                    {doctor?.available ? "Available" : "Unavailable"}
+                  </span>
 
-            {/* ACTION BUTTON */}
-            <div className="d-flex justify-content-end mt-4">
-              <button className="btn btn-primary px-4" onClick={handleUpdate}>
-                Update Doctor
-              </button>
+                  <button
+                    className={`btn ms-3 ${
+                      doctor?.available
+                        ? "btn-outline-danger"
+                        : "btn-outline-success"
+                    }`}
+                    onClick={() =>
+                      handleAvailStatus(doctor._id, !doctor.available)
+                    }
+                  >
+                    {doctor?.available ? "Mark Unavailable" : "Mark Available"}
+                  </button>
+                </div>
+
+                {/* Update Button */}
+                {/* ACTION BUTTON */}
+                <button
+                  className="btn btn-primary px-4"
+                  onClick={handleUpdate}
+                  disabled={!edit}
+                >
+                  Update Doctor
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import {
   deleteDoctor,
   getAllDoctor,
   getDoctorDetails,
+  updateAvailStatus,
   updateDoctor,
 } from "../actions/doctorAction";
 
@@ -19,6 +20,7 @@ const initialState = {
   addSuccess: false, // addDoctor
   updateSuccess: false, // updateDoctor
   deleteSuccess: false,
+  availableSuccess: false,
   error: null,
 };
 
@@ -99,7 +101,6 @@ const doctorSlice = createSlice({
         state.error = action.payload;
       })
       /* ================= DELETE DOCTOR ================= */
-
       .addCase(deleteDoctor.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -109,6 +110,19 @@ const doctorSlice = createSlice({
         state.deleteSuccess = true;
       })
       .addCase(deleteDoctor.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      /* ================= UPDATE AVAILABLE STATUS DOCTOR ================= */
+      .addCase(updateAvailStatus.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateAvailStatus.fulfilled, (state) => {
+        state.loading = false;
+        state.availableSuccess = true;
+      })
+      .addCase(updateAvailStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

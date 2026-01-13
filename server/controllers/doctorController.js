@@ -184,14 +184,13 @@ export const updateAvailableStatus = async (req, res) => {
   try {
     const { id } = req.params;
     if (!id) {
-      res.status(404).send({
+      return res.status(400).send({
         success: false,
-        message: "Please add doctor id",
-        doctor,
+        message: "Please provide doctor id",
       });
     }
     const { availableStatus } = req.body;
-    if (!availableStatus) {
+    if (availableStatus === undefined) {
       res.status(404).send({
         success: false,
         message: "Please provide available status",
