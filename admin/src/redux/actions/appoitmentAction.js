@@ -35,3 +35,28 @@ export const getAppointmentDetails = createAsyncThunk(
     }
   }
 );
+// Update Status Appointment
+export const updateAppointmentStatus = createAsyncThunk(
+  "appointment/updateAppointmentStatus",
+
+  async ({ id, appointmentStatus }, thunkApi) => {
+    try {
+      const res = await API.patch(
+        `/appointment/update-status/${id}`,
+        { appointmentStatus }, // ✅ OBJECT
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return res?.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        "Update Appointment Status Error";
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);

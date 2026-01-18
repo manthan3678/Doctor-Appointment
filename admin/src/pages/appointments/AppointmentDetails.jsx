@@ -1,26 +1,48 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { getAppointmentDetails } from "../../redux/actions/appoitmentAction";
-import { useParams } from "react-router-dom";
+import {
+  getAppointmentDetails,
+  updateAppointmentStatus,
+} from "../../redux/actions/appoitmentAction";
+import { useNavigate, useParams } from "react-router-dom";
+import InputSelect from "../../components/forms/InputSelect";
+import toast from "react-hot-toast";
 
 const AppointmentDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [appointmentStatus, setAppointmentStatus] = useState("");
 
   useEffect(() => {
     dispatch(getAppointmentDetails(id));
   }, [dispatch, id]);
 
-  const { appointment, loading } = useSelector((state) => state.appointments);
+  const { appointment, loading, updateAppointment, error } = useSelector(
+    (state) => state.appointments
+  );
 
   useEffect(() => {
     if (appointment) {
       setAppointmentStatus(appointment?.bookingStatus);
     }
   }, [appointment]);
-
+  const handleUpdateBooking = () => {
+    dispatch(
+      updateAppointmentStatus({
+        id,
+        appointmentStatus,
+      })
+    );
+    if (updateAppointment) {
+      toast.success("Appointment Status Updated");
+      navigate("/all-appointment");
+    }
+    if (error) {
+      toast.error(error);
+    }
+  };
   return (
     <Layout>
       <div className="container py-4">
@@ -103,12 +125,70 @@ const AppointmentDetails = () => {
                         appointmentStatus === "confirmed"
                           ? "bg-success"
                           : appointmentStatus === "cancelled"
-                          ? "bg-danger"
-                          : "bg-warning text-dark"
+                            ? "bg-danger"
+                            : "bg-warning text-dark"
                       }`}
                     >
                       {appointmentStatus}
                     </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Appointment Booking Status Update */}
+            <div className="col-12 mt-4">
+              <div className="card shadow-sm border-0">
+                <div className="card-header bg-light fw-semibold d-flex justify-content-between align-items-center">
+                  <span>Update Booking Status</span>
+
+                  {/* Current Status Badge */}
+                  <span
+                    className={`badge rounded-pill px-3 py-2 ${
+                      appointmentStatus === "confirmed"
+                        ? "bg-success"
+                        : appointmentStatus === "cancelled"
+                          ? "bg-danger"
+                          : "bg-warning text-dark"
+                    }`}
+                  >
+                    {appointmentStatus || "pending"}
+                  </span>
+                </div>
+
+                <div className="card-body">
+                  <div className="row align-items-end g-3">
+                    {/* Select Status */}
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold">
+                        Select New Status
+                      </label>
+                      <InputSelect
+                        value={appointmentStatus}
+                        setValue={setAppointmentStatus}
+                        options={["pending", "confirmed", "cancelled"]}
+                      />
+                    </div>
+
+                    {/* Action Button */}
+                    <div className="col-md-6 text-md-end">
+                      <button
+                        className="btn btn-primary px-4"
+                        onClick={handleUpdateBooking}
+                        disabled={loading}
+                      >
+                        {loading ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                            />
+                            Updating...
+                          </>
+                        ) : (
+                          "Update Status"
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

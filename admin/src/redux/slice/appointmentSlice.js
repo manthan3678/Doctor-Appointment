@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getAllAppointment,
   getAppointmentDetails,
+  updateAppointmentStatus,
 } from "../actions/appoitmentAction";
 const initialState = {
   loading: false,
@@ -13,7 +14,7 @@ const initialState = {
   // success flags (SEPARATE)
   fetchSuccess: false, // getAllAppointment
   addSuccess: false, // addDoctor
-  updateSuccess: false, // updateDoctor
+  updateAppointment: false, // update appointment status
   deleteSuccess: false,
   availableSuccess: false,
   error: null,
@@ -26,7 +27,7 @@ const appointmentSlice = createSlice({
     resetStatus: (state) => {
       state.fetchSuccess = false;
       state.addSuccess = false;
-      state.updateSuccess = false;
+      state.updateAppointment = false;
       state.error = null;
     },
   },
@@ -60,6 +61,19 @@ const appointmentSlice = createSlice({
         state.appointment = action.payload.appointmentDetails;
       })
       .addCase(getAppointmentDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      /* ================= UPDATE APPOINMENT BOOKING STATUS ================= */
+      .addCase(updateAppointmentStatus.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateAppointmentStatus.fulfilled, (state) => {
+        state.loading = false;
+        state.updateAppointment = true;
+      })
+      .addCase(updateAppointmentStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
