@@ -1,0 +1,15 @@
+.card {
+  border-radius: 14px;
+}
+
+.card-header {
+  font-size: 0.95rem;
+}
+
+.badge {
+  font-size: 0.85rem;
+}
+
+.container-fluid {
+  max-width: 1200px;
+}
