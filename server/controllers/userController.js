@@ -252,9 +252,11 @@ export const getStat = async (req, res) => {
     res.status(200).send({
       success: true,
       message: "Get Successfully All Statistic",
-      totalUser: users.length,
-      totalDoctor: doctors.length,
-      totalEarning: total,
+      stats: {
+        totalUser: users.length,
+        totalDoctor: doctors.length,
+        totalEarning: total,
+      },
     });
   } catch (error) {
     console.log(error);

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUser, getUserDeatils } from "../actions/userAction";
+import { getAllStats, getAllUser, getUserDeatils } from "../actions/userAction";
 
 const userSlice = createSlice({
   name: "user",
@@ -10,6 +10,7 @@ const userSlice = createSlice({
     users: null,
     token: null,
     appointments: null,
+    stats: null,
     error: null,
   },
   reducers: {
@@ -55,6 +56,24 @@ const userSlice = createSlice({
 
       // get user details ERROR ❌
       .addCase(getUserDeatils.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // get Stats details PENDING
+      .addCase(getAllStats.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      // get Stats details SUCCESS ✅
+      .addCase(getAllStats.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.stats = action.payload.stats;
+      })
+
+      // get Stats details ERROR ❌
+      .addCase(getAllStats.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

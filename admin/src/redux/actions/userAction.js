@@ -14,7 +14,7 @@ export const getAllUser = createAsyncThunk(
         error?.response?.data?.message || error.message || "Get Users Error";
       return thunkApi.rejectWithValue(message);
     }
-  }
+  },
 );
 // get all userDetails
 export const getUserDeatils = createAsyncThunk(
@@ -29,5 +29,25 @@ export const getUserDeatils = createAsyncThunk(
         error?.response?.data?.message || error.message || "User Details Error";
       return thunkApi.rejectWithValue(message);
     }
-  }
+  },
+);
+// ********************************************************
+// ********************************************************
+// ********************************************************
+// HOME PAGE DATA Function
+export const getAllStats = createAsyncThunk(
+  "user/getAllStats",
+
+  async (_, thunkApi) => {
+    try {
+      const res = await API.get("/user/get-allstatistic");
+      return res?.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message ||
+        error.message ||
+        "Get Statistic Error";
+      return thunkApi.rejectWithValue(message);
+    }
+  },
 );
