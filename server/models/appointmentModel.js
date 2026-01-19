@@ -22,7 +22,7 @@ const appointmentSchema = new mongoose.Schema(
     },
     payment: { type: Boolean, default: false },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const appointmentModel = mongoose.model("appointment", appointmentSchema);

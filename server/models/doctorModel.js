@@ -22,7 +22,7 @@ const doctorSchema = new mongoose.Schema(
     gender: { type: String },
     available: { type: Boolean, default: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const doctorModel = mongoose.model("doctor", doctorSchema);

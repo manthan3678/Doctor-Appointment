@@ -3,6 +3,7 @@ import appointmentModel from "../models/appointmentModel.js";
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import doctorModel from "../models/doctorModel.js";
 
 // ***************** Register ***********************
 export const userRegister = async (req, res) => {
@@ -102,7 +103,7 @@ export const updateUser = async (req, res) => {
       {
         $set: { name, dob, address, gender, phone, image: photoToBase64 },
       },
-      { returnOriginal: false }
+      { returnOriginal: false },
     );
 
     res.status(200).send({
@@ -230,6 +231,36 @@ export const getUserDetails = async (req, res) => {
     return res.status(500).send({
       success: false,
       message: "Error In Getting User Details",
+      error,
+    });
+  }
+};
+// ********************************************************
+// ********************************************************
+// ********************************************************
+// HOME PAGE DATA CONTROLLER
+export const getStat = async (req, res) => {
+  try {
+    const users = await userModel.find({});
+    const doctors = await doctorModel.find({});
+    const appointments = await appointmentModel.aggregate([
+      {
+        $group: { _id: null, totalEarning: { $sum: { $toDouble: `$amount` } } },
+      },
+    ]);
+    const total = appointments.length > 0 ? appointments[0].totalEarning : 0;
+    res.status(200).send({
+      success: true,
+      message: "Get Successfully All Statistic",
+      totalUser: users.length,
+      totalDoctor: doctors.length,
+      totalEarning: total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error In Getting Statistic",
       error,
     });
   }
