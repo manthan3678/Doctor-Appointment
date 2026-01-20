@@ -12,10 +12,13 @@
   background-color: #008080;
   color: #fff;
   font-weight: 400;
+  padding-block: 0.5rem;
+}
+.topbar_container h6 {
+  margin: 0;
 }
 .navbar {
   background-color: #ffffff;
-  margin-bottom: 10px;
 }
 
 .nav-link {

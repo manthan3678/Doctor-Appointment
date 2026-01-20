@@ -1,41 +1,55 @@
-.doc-container .card {
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  display: flex;
-  flex-wrap: wrap;
+.doctor-card {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
 }
 
-.doc-container a {
-  text-decoration: none;
-  color: black;
+.doctor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 128, 0, 0.2);
 }
 
-.doc-container .card-body {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  text-align: center;
+.doctor-img-wrapper {
+  padding-top: 20px;
 }
 
-.doc-container h6 {
-  font-weight: bold;
+.doctor-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #e6f4ea;
 }
 
-.doc-container .card-footer {
+.card-body h6 {
+  color: #1b5e20;
+}
+
+.badge {
+  font-size: 0.75rem;
+}
+/*  */
+
+.appointment_container .doctor-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border: 4px solid #e9f5f1;
+}
+
+.appointment_container .card {
+  border-radius: 14px;
+}
+
+.appointment_container .card-header {
+  padding: 1.5rem;
+}
+
+.appointment_container .btn-primary {
+  border-radius: 10px;
+}
+
+.appointment_container .react-datepicker-wrapper {
   width: 100%;
-  text-align: center;
-  background-color: transparent;
-}
-
-.doc-container .card:hover {
-  background-color: rgb(216, 255, 255);
-}
-
-.calender {
-  cursor: pointer;
-  width: 300px;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid teal;
-  background-color: rgb(249, 250, 172);
 }

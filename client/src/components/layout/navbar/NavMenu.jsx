@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router";
 const NavMenu = () => {
-  const [user, setUser] = useState(true);
-
+  const { user } = useSelector((state) => state.auth);
   return (
     <>
       <nav className="navbar navbar-expand-lg">

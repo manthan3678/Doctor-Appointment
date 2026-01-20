@@ -1,25 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import "./Auth.css";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/actions/authAction";
+import { reset } from "../../redux/slice/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { error, success } = useSelector((state) => state.auth);
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
-      console.log(password, name, email);
-      setEmail("");
-      setPassword("");
-      toast.success("SuccessFully Login");
-      navigate("/login");
+      dispatch(login({ email, password }));
     } catch (error) {
       console.log(error);
       toast.error(error);
     }
   };
+  useEffect(() => {
+    if (success) {
+      setEmail("");
+      setPassword("");
+      toast.success("SuccessFully Login");
+      navigate("/user/profile");
+      dispatch(reset());
+    }
+    if (error) {
+      console.log(error);
+      toast.error(error);
+      dispatch(reset());
+    }
+  }, [dispatch, navigate, success, error]);
   return (
     <>
       <div className="auth-container">
