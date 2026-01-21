@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router";
 
 import Home from "./pages/Home";
@@ -15,7 +15,9 @@ import Appointment from "./pages/Doctors/Appointment.jsx";
 import UserProfile from "./pages/User/UserProfile.jsx";
 import MyAppointment from "./pages/User/MyAppointment.jsx";
 
+
 const App = () => {
+  
   return (
     <>
       <Navbar />

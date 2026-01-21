@@ -202,16 +202,21 @@ export const getAllUser = async (req, res) => {
 // get user details & appointment details
 export const getUserDetails = async (req, res) => {
   try {
+    const userId = req.user.id;
+
     const { id } = req.params;
 
-    if (!id) {
-      return res.status(404).send({
-        success: false,
-        message: "Provide User Id",
-      });
-    }
-    const user = await userModel.findById(id);
+    // if (!id) {
+    //   console.log("Provide User Id");
+    //   return res.status(404).send({
+    //     success: false,
+    //     message: "Provide User Id",
+    //   });
+    // }
+    const user = await userModel.findById(userId);
+
     if (!user) {
+      console("No User Found With  This Id");
       return res.status(404).send({
         success: false,
         message: "No User Found With  This Id",

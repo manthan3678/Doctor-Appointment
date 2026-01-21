@@ -1,8 +1,14 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router";
+import { getUserDeatils } from "../../../redux/actions/userAction";
 const NavMenu = () => {
-  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserDeatils());
+  }, [dispatch]);
+  const { user } = useSelector((state) => state.user);
   return (
     <>
       <nav className="navbar navbar-expand-lg">

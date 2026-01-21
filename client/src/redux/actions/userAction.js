@@ -20,9 +20,16 @@ export const getAllUser = createAsyncThunk(
 export const getUserDeatils = createAsyncThunk(
   "user/getUserDeatils",
 
-  async (id, thunkApi) => {
+  async (_, thunkApi) => {
     try {
-      const res = await API.get(`/user/get-userdetails/${id}`);
+      const appData = JSON.parse(localStorage.getItem("appData"));
+      const token = appData?.token;
+
+      const res = await API.get("/user/get-userdetails", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res?.data;
     } catch (error) {
       const message =
