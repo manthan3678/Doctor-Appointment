@@ -9,15 +9,13 @@ import {
   getUserDeatils,
   updateUserDetails,
 } from "../../redux/actions/userAction";
+import { resetUpdate } from "../../redux/slice/userSlice";
 const EditUser = ({ isOpen, onClose }) => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getUserDeatils());
-  }, [dispatch]);
   const { user, success, error, updateSuccess } = useSelector(
     (state) => state.user,
   );
@@ -53,13 +51,18 @@ const EditUser = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (updateSuccess) {
       toast.success("User Details Updated");
-      navigate(`/user/profile/${user?._id}`);
+
+      onClose(); // ✅ CLOSE MODAL
+      dispatch(getUserDeatils()); // ✅ REFRESH USER DATA
+      dispatch(resetUpdate());
+      navigate(`/user/profile/${id}`);
     }
 
     if (error) {
       toast.error(error);
     }
-  }, [dispatch, updateSuccess, error, navigate]);
+  }, [updateSuccess, error, dispatch, navigate, id, onClose]);
+
   if (!isOpen) return null;
 
   return (
@@ -105,17 +108,14 @@ const EditUser = ({ isOpen, onClose }) => {
                 />
                 <div className="d-flex flex-row">
                   <select
-                    className="m-1"
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
                   >
-                    <option value={gender} selected>
-                      Male
-                    </option>
-                    <option value={gender} selected>
-                      Female
-                    </option>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
                   </select>
+
                   <input
                     type="date"
                     placeholder="DOB"

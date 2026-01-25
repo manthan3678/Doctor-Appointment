@@ -24,6 +24,9 @@ const userSlice = createSlice({
       state.error = null;
       state.success = false;
     },
+    resetUpdate: (state) => {
+      state.updateSuccess = false; // 🔥 THIS IS KEY
+    },
   },
   extraReducers: (builder) => {
     // get all user
@@ -100,5 +103,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { reset } = userSlice.actions;
+export const { reset, resetUpdate } = userSlice.actions;
 export default userSlice.reducer;
