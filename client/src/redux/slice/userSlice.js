@@ -1,11 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllStats, getAllUser, getUserDeatils } from "../actions/userAction";
+import {
+  getAllStats,
+  getAllUser,
+  getUserDeatils,
+  updateUserDetails,
+} from "../actions/userAction";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     loading: false,
     success: false,
+    updateSuccess: false,
     user: null,
     users: null,
     token: null,
@@ -56,6 +62,20 @@ const userSlice = createSlice({
 
       // get user details ERROR ❌
       .addCase(getUserDeatils.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      /* ================= UPDATE USER DETAILS ================= */
+
+      .addCase(updateUserDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserDetails.fulfilled, (state) => {
+        state.loading = false;
+        state.updateSuccess = true;
+      })
+      .addCase(updateUserDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

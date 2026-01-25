@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, success } = useSelector((state) => state.auth);
+  const { error, success, user } = useSelector((state) => state.auth);
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
@@ -26,7 +26,7 @@ const Login = () => {
       setEmail("");
       setPassword("");
       toast.success("SuccessFully Login");
-      navigate("/user/profile");
+      navigate(`/user/profile/${user?._id}`);
       dispatch(reset());
     }
     if (error) {

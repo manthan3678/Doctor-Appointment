@@ -15,9 +15,7 @@ import Appointment from "./pages/Doctors/Appointment.jsx";
 import UserProfile from "./pages/User/UserProfile.jsx";
 import MyAppointment from "./pages/User/MyAppointment.jsx";
 
-
 const App = () => {
-  
   return (
     <>
       <Navbar />
@@ -31,7 +29,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/doctors" element={<AllDoctor />} />
         <Route path="/doctors/:id" element={<Appointment />} />
-        <Route path="/user/profile" element={<UserProfile />} />
+        <Route path="/user/profile/:id" element={<UserProfile />} />
         <Route path="/user/appointments" element={<MyAppointment />} />
       </Routes>
       <Footer />

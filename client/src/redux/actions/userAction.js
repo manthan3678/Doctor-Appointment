@@ -38,7 +38,25 @@ export const getUserDeatils = createAsyncThunk(
     }
   },
 );
-// ********************************************************
+// update user details
+export const updateUserDetails = createAsyncThunk(
+  "user/updateUserDetails",
+
+  async ({ id, formData }, thunkApi) => {
+    try {
+      const res = await API.patch(`/user/update/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return res?.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message || error.message || "User Update Error";
+      return thunkApi.rejectWithValue(message);
+    }
+  },
+); // ********************************************************
 // ********************************************************
 // ********************************************************
 // HOME PAGE DATA Function

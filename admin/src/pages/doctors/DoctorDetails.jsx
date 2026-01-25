@@ -94,7 +94,7 @@ const DoctorDetails = () => {
   // Handle Delete
   const handleDelete = () => {
     const confirm = window.confirm(
-      "Are Your Sure, You Want to Delete This Doctor"
+      "Are Your Sure, You Want to Delete This Doctor",
     );
     if (confirm) {
       disptach(deleteDoctor(id));

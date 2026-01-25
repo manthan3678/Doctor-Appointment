@@ -80,7 +80,7 @@ const NavMenu = () => {
                 <li className="nav-item">
                   <NavLink
                     className="nav-link p-0 fs-3 text"
-                    to={"/user/profile"}
+                    to={`/user/profile/${user?._id}`}
                     aria-disabled="true"
                   >
                     <i className="fa-solid fa-circle-user"></i>
